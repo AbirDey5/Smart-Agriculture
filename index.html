@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crop Disease Detector</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Upload Page -->
+    <section id="upload-page" class="active">
+        <div class="container">
+            <h1>Crop Disease Detector</h1>
+            <p>Upload an image of your diseased crop</p>
+
+            <div class="upload-box">
+                <input type="file" id="imageInput" accept="image/*">
+                <p>Click to upload or drag & drop</p>
+            </div>
+
+            <img id="preview" class="preview-img" style="display:none;">
+
+            <button id="analyzeBtn" disabled>Analyze Image</button>
+        </div>
+    </section>
+
+    <!-- Result Page -->
+    <section id="result-page">
+        <div class="container">
+            <h1>Disease Analysis Result</h1>
+
+            <img id="resultImage" class="preview-img">
+
+            <div class="result-card">
+                <h2>Disease Identified: <span>Leaf Spot Disease</span></h2>
+                <p>
+                    Leaf Spot Disease is a common fungal infection causing dark circular spots,
+                    yellow halos, and reduced plant growth. It spreads quickly in warm and humid climates.
+                </p>
+
+                <h3>Recommended Treatment</h3>
+                <ul>
+                    <li>Remove and destroy infected leaves.</li>
+                    <li>Apply copper-based or broad-spectrum fungicides.</li>
+                    <li>Improve plant spacing to enhance airflow.</li>
+                    <li>Avoid overhead watering.</li>
+                    <li>Sanitize gardening tools.</li>
+                </ul>
+
+                <h3>Prevention Tips</h3>
+                <ul>
+                    <li>Practice crop rotation.</li>
+                    <li>Maintain soil health.</li>
+                    <li>Monitor crops regularly.</li>
+                    <li>Ensure proper drainage.</li>
+                    <li>Use resistant seed varieties.</li>
+                </ul>
+            </div>//result-card>
+
+            <button id="expertBtn" class="expert-btn">Ask Expert Review</button>
+            <button id="backBtn" class="back-btn">Upload Another Image</button>
+        </div>
+    </section>
+
+    <!-- Expert Modal -->
+    <div id="expertModal" class="modal">
+        <div class="modal-content">
+            <h2>Expert Review Requested</h2>
+            <p>Your request has been sent to an agricultural expert. You will receive feedback soon.</p>
+            <button id="closeModal">Close</button>
+        </div>
+    </div>
+
+<script src="script.js"></script>
+</body>
+</html>
