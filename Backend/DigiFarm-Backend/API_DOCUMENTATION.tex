@@ -1,0 +1,505 @@
+\documentclass[12pt]{article}
+\usepackage[utf-8]{inputenc}
+\usepackage[margin=1in]{geometry}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{fancyhdr}
+\usepackage{array}
+\usepackage{booktabs}
+
+% Code style setup
+\lstset{
+    language=json,
+    basicstyle=\ttfamily\small,
+    breaklines=true,
+    backgroundcolor=\color{lightgray!20},
+    frame=single,
+    showstringspaces=false,
+    keywordstyle=\color{blue},
+    commentstyle=\color{gray},
+    stringstyle=\color{red},
+    numbers=none
+}
+
+% Header and Footer
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{DigiFarm Backend - API Documentation}
+\rhead{\today}
+\cfoot{\thepage}
+
+\title{\textbf{DigiFarm Backend API Documentation}}
+\author{Smart Agriculture Project}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section*{Base URL}
+\begin{center}
+    \large \texttt{http://localhost:8080}
+\end{center}
+
+\newpage
+\tableofcontents
+\newpage
+
+% API 1: Farmer Login
+\section{Farmer Login}
+
+\begin{tabular}{|l|l|}
+\hline
+\textbf{Method} & \texttt{POST} \\
+\hline
+\textbf{Endpoint} & \texttt{/api/login/farmer} \\
+\hline
+\textbf{Purpose} & Authenticate a farmer with email and password \\
+\hline
+\end{tabular}
+
+\subsection*{Request}
+\begin{lstlisting}
+{
+  "email": "farmer@example.com",
+  "password": "password123"
+}
+\end{lstlisting}
+
+\subsection*{Response (200 OK)}
+\begin{lstlisting}
+{
+  "message": "Login successful",
+  "farmerId": 1,
+  "name": "John",
+  "email": "farmer@example.com",
+  "userType": "farmer"
+}
+\end{lstlisting}
+
+\vspace{0.5cm}
+
+% API 2: Expert Login
+\section{Expert Login}
+
+\begin{tabular}{|l|l|}
+\hline
+\textbf{Method} & \texttt{POST} \\
+\hline
+\textbf{Endpoint} & \texttt{/api/login/expert} \\
+\hline
+\textbf{Purpose} & Authenticate an expert with email and password \\
+\hline
+\end{tabular}
+
+\subsection*{Request}
+\begin{lstlisting}
+{
+  "email": "expert@example.com",
+  "password": "password123"
+}
+\end{lstlisting}
+
+\subsection*{Response (200 OK)}
+\begin{lstlisting}
+{
+  "message": "Login successful",
+  "expertId": 1,
+  "name": "Dr. Expert",
+  "email": "expert@example.com",
+  "specialization": "Crop Management",
+  "userType": "expert"
+}
+\end{lstlisting}
+
+\vspace{0.5cm}
+
+% API 3: Register Farmer
+\section{Register Farmer}
+
+\begin{tabular}{|l|l|}
+\hline
+\textbf{Method} & \texttt{POST} \\
+\hline
+\textbf{Endpoint} & \texttt{/api/register/farmer} \\
+\hline
+\textbf{Purpose} & Register a new farmer account \\
+\hline
+\end{tabular}
+
+\subsection*{Request}
+\begin{lstlisting}
+{
+  "name": "John",
+  "email": "farmer@example.com",
+  "password": "password123",
+  "phone": "+1234567890",
+  "village": "Green Valley",
+  "city": "Springfield",
+  "district": "District1",
+  "country": "India"
+}
+\end{lstlisting}
+
+\subsection*{Response (201 Created)}
+\begin{lstlisting}
+{
+  "message": "Farmer registered",
+  "farmerId": 1,
+  "email": "farmer@example.com"
+}
+\end{lstlisting}
+
+\vspace{0.5cm}
+
+% API 4: Register Expert
+\section{Register Expert}
+
+\begin{tabular}{|l|l|}
+\hline
+\textbf{Method} & \texttt{POST} \\
+\hline
+\textbf{Endpoint} & \texttt{/api/register/expert} \\
+\hline
+\textbf{Purpose} & Register a new expert account \\
+\hline
+\end{tabular}
+
+\subsection*{Request}
+\begin{lstlisting}
+{
+  "name": "Dr. Expert",
+  "email": "expert@example.com",
+  "password": "password123",
+  "phone": "+1234567890",
+  "village": "Green Valley",
+  "city": "Springfield",
+  "district": "District1",
+  "country": "India",
+  "specialization": "Crop Management"
+}
+\end{lstlisting}
+
+\subsection*{Response (201 Created)}
+\begin{lstlisting}
+{
+  "message": "Expert registered",
+  "expertId": 1,
+  "email": "expert@example.com"
+}
+\end{lstlisting}
+
+\vspace{0.5cm}
+
+% API 5: Create Question
+\section{Create Question}
+
+\begin{tabular}{|l|l|}
+\hline
+\textbf{Method} & \texttt{POST} \\
+\hline
+\textbf{Endpoint} & \texttt{/api/questions} \\
+\hline
+\textbf{Purpose} & Create a new question \\
+\hline
+\end{tabular}
+
+\subsection*{Request}
+\begin{lstlisting}
+{
+  "title": "How to prevent crop disease?",
+  "description": "Detailed question...",
+  "farmerEmail": "farmer@example.com",
+  "category": "Disease Management"
+}
+\end{lstlisting}
+
+\subsection*{Response (201 Created)}
+\begin{lstlisting}
+{
+  "questionId": 1,
+  "title": "How to prevent crop disease?",
+  "description": "...",
+  "farmerEmail": "farmer@example.com",
+  "askedDate": "2025-01-19T10:30:00"
+}
+\end{lstlisting}
+
+\vspace{0.5cm}
+
+% API 6: Get All Questions
+\section{Get All Questions}
+
+\begin{tabular}{|l|l|}
+\hline
+\textbf{Method} & \texttt{GET} \\
+\hline
+\textbf{Endpoint} & \texttt{/api/questions} \\
+\hline
+\textbf{Purpose} & Retrieve all questions ordered by most recent \\
+\hline
+\end{tabular}
+
+\subsection*{Response (200 OK)}
+\begin{lstlisting}
+[
+  {
+    "questionId": 1,
+    "title": "How to prevent crop disease?",
+    "description": "...",
+    "farmerEmail": "farmer@example.com",
+    "askedDate": "2025-01-19T10:30:00"
+  }
+]
+\end{lstlisting}
+
+\vspace{0.5cm}
+
+% API 7: Create Answer
+\section{Create Answer}
+
+\begin{tabular}{|l|l|}
+\hline
+\textbf{Method} & \texttt{POST} \\
+\hline
+\textbf{Endpoint} & \texttt{/api/answers} \\
+\hline
+\textbf{Purpose} & Create an answer to a question \\
+\hline
+\end{tabular}
+
+\subsection*{Request}
+\begin{lstlisting}
+{
+  "title": "How to prevent crop disease",
+  "description": "Here are best practices...",
+  "questionId": 1,
+  "expertEmail": "expert@example.com"
+}
+\end{lstlisting}
+
+\subsection*{Response (201 Created)}
+\begin{lstlisting}
+{
+  "answerId": 1,
+  "title": "How to prevent crop disease",
+  "description": "...",
+  "questionId": 1,
+  "expertEmail": "expert@example.com",
+  "answeredDate": "2025-01-19T11:00:00"
+}
+\end{lstlisting}
+
+\vspace{0.5cm}
+
+% API 8: Get Answers by Question
+\section{Get Answers by Question}
+
+\begin{tabular}{|l|l|}
+\hline
+\textbf{Method} & \texttt{GET} \\
+\hline
+\textbf{Endpoint} & \texttt{/api/answers/question/\{questionId\}} \\
+\hline
+\textbf{Purpose} & Retrieve all answers for a specific question \\
+\hline
+\end{tabular}
+
+\subsection*{Response (200 OK)}
+\begin{lstlisting}
+[
+  {
+    "answerId": 1,
+    "title": "How to prevent crop disease",
+    "description": "...",
+    "questionId": 1,
+    "expertEmail": "expert@example.com",
+    "answeredDate": "2025-01-19T11:00:00"
+  }
+]
+\end{lstlisting}
+
+\vspace{0.5cm}
+
+% API 9: Create Article
+\section{Create Article}
+
+\begin{tabular}{|l|l|}
+\hline
+\textbf{Method} & \texttt{POST} \\
+\hline
+\textbf{Endpoint} & \texttt{/api/articles} \\
+\hline
+\textbf{Purpose} & Create a new article by an expert \\
+\hline
+\end{tabular}
+
+\subsection*{Request}
+\begin{lstlisting}
+{
+  "title": "Best Practices for Crop Management",
+  "content": "Detailed article...",
+  "category": "Crop Management",
+  "expertEmail": "expert@example.com"
+}
+\end{lstlisting}
+
+\subsection*{Response (201 Created)}
+\begin{lstlisting}
+{
+  "articleId": 1,
+  "title": "Best Practices for Crop Management",
+  "content": "...",
+  "category": "Crop Management",
+  "expertEmail": "expert@example.com",
+  "createdDate": "2025-01-19T09:00:00"
+}
+\end{lstlisting}
+
+\vspace{0.5cm}
+
+% API 10: Get All Articles
+\section{Get All Articles}
+
+\begin{tabular}{|l|l|}
+\hline
+\textbf{Method} & \texttt{GET} \\
+\hline
+\textbf{Endpoint} & \texttt{/api/articles} \\
+\hline
+\textbf{Purpose} & Retrieve all articles ordered by most recent \\
+\hline
+\end{tabular}
+
+\subsection*{Response (200 OK)}
+\begin{lstlisting}
+[
+  {
+    "articleId": 1,
+    "title": "Best Practices for Crop Management",
+    "content": "...",
+    "category": "Crop Management",
+    "expertEmail": "expert@example.com",
+    "createdDate": "2025-01-19T09:00:00"
+  }
+]
+\end{lstlisting}
+
+\vspace{0.5cm}
+
+% API 11: Create Crop
+\section{Create Crop}
+
+\begin{tabular}{|l|l|}
+\hline
+\textbf{Method} & \texttt{POST} \\
+\hline
+\textbf{Endpoint} & \texttt{/api/crops/\{farmerId\}} \\
+\hline
+\textbf{Purpose} & Create a new crop for a farmer \\
+\hline
+\end{tabular}
+
+\subsection*{Request}
+\begin{lstlisting}
+{
+  "cropName": "Wheat",
+  "cropType": "Cereal",
+  "fieldId": 1,
+  "area": 5.5,
+  "plantedDate": "2025-01-01",
+  "expectedHarvestDate": "2025-05-01",
+  "stage": "Germination",
+  "health": "Good",
+  "expectedYield": 15.0,
+  "notes": "Using certified seeds"
+}
+\end{lstlisting}
+
+\subsection*{Response (200 OK)}
+\begin{lstlisting}
+{
+  "cropId": 1,
+  "message": "Crop created successfully"
+}
+\end{lstlisting}
+
+\vspace{0.5cm}
+
+% API 12: Get Crops by Farmer
+\section{Get Crops by Farmer}
+
+\begin{tabular}{|l|l|}
+\hline
+\textbf{Method} & \texttt{GET} \\
+\hline
+\textbf{Endpoint} & \texttt{/api/crops/farmer/\{farmerId\}} \\
+\hline
+\textbf{Purpose} & Retrieve all crops for a specific farmer \\
+\hline
+\end{tabular}
+
+\subsection*{Response (200 OK)}
+\begin{lstlisting}
+[
+  {
+    "cropId": 1,
+    "cropName": "Wheat",
+    "cropType": "Cereal",
+    "fieldName": "Field 1",
+    "fieldId": 1,
+    "area": 5.5,
+    "stage": "Germination",
+    "health": "Good",
+    "plantedDate": "2025-01-01",
+    "expectedHarvestDate": "2025-05-01",
+    "daysToHarvest": 102,
+    "expectedYield": 15.0,
+    "notes": "Using certified seeds"
+  }
+]
+\end{lstlisting}
+
+\newpage
+
+% HTTP Status Codes Section
+\section*{HTTP Status Codes}
+
+\begin{center}
+\begin{tabular}{|l|p{6cm}|}
+\toprule
+\textbf{Status Code} & \textbf{Description} \\
+\midrule
+\texttt{200 OK} & Request successful \\
+\texttt{201 Created} & Resource created successfully \\
+\texttt{400 Bad Request} & Invalid request parameters \\
+\texttt{401 Unauthorized} & Authentication failed \\
+\texttt{404 Not Found} & Resource not found \\
+\texttt{409 Conflict} & Duplicate entry or resource conflict \\
+\texttt{500 Internal Server Error} & Server error \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\vspace{1cm}
+
+\section*{Notes}
+
+\begin{itemize}
+    \item All endpoints use \texttt{@CrossOrigin} to allow cross-origin requests
+    \item Default CORS configuration allows \texttt{localhost:3000} for frontend
+    \item Some endpoints allow all origins (\texttt{*})
+    \item Dates are in ISO 8601 format (\texttt{YYYY-MM-DD})
+    \item Timestamps include time (\texttt{YYYY-MM-DDTHH:mm:ss})
+    \item Email addresses are case-insensitive and trimmed
+    \item Passwords are hashed using SHA-256
+\end{itemize}
+
+\vspace{2cm}
+
+\begin{center}
+    \textit{Last Updated: January 19, 2026}
+\end{center}
+
+\end{document}
